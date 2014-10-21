@@ -21,28 +21,24 @@ I have pre-packaged the VNC server (TightVNC) files plus scripts needed to set u
 Manual steps (to use latest version of TightVNC)
 ------------------------------------------------
 
-1. Mount WIM image with dism (if extracted from boot.wim, it will be index:2)
-2. mkdir \deploy
-3. move \setup.exe -> \deploy\setup.exe
-4. Download TightVNC 32 or 64-bit (important!!)
-5. Install TightVNC on reference computer and configure the service mode version
-6. Export HKLM\SOFTWARE\TightVNC to config32.reg
-7. (64-bit only) Export HKLM\SOFTWARE\Wow6432Node\TightVNC to config64.reg
-8. mkdir \VNC and place .reg file(s) in directory
-9. Copy the following files from the TightVNC install folder to \VNC:
-
+1. Mount WIM image with `dism` (if extracted from a `boot.wim`, it will be index:2).
+2. Create two new directories: `\deploy` and `\VNC`.
+3. Move `\setup.exe` to `\deploy\setup.exe`.
+4. [Download TightVNC 32 or 64-bit](http://www.tightvnc.com/download.php) (architecture is important!!).
+5. Install TightVNC on reference computer and configure the Service mode.
+6. Export `HKLM\SOFTWARE\TightVNC to `\VNC\config32.reg`
+7. (64-bit only) Export `HKLM\SOFTWARE\Wow6432Node\TightVNC` to `\VNC\config64.reg`
+8. Copy the following files from the TightVNC install folder to `\VNC`:
     * tvnserver.exe
     * screenhooks32.dll
-
      (64-bit only):
     * hookldr.exe
     * screenhooks64.dll
-
-10. Edit \Windows\System32\startnet.cmd and append the following line:
+9. Edit `\Windows\System32\startnet.cmd` and append the following line:
     
-    \deploy\preinit.cmd
+    `\deploy\preinit.cmd`
 
-11. Create \deploy\preinit.cmd as follows (delete the config64.reg line if using a 32-bit image):
+10. Create `\deploy\preinit.cmd` as follows (delete the `config64.reg` line if using a 32-bit image):
 
     ```
     @echo off
