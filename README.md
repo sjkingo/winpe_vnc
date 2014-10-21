@@ -4,11 +4,22 @@ winpe_vnc - How to integrate a VNC server into WinPE
 Quick steps
 -----------
 
+I have pre-packaged the VNC server (TightVNC) files plus scripts needed to set up the server.
+
 * Download for 32-bit boot image: [winpe_vnc_files_x86.zip](https://github.com/sjkingo/winpe_vnc/raw/master/winpe_vnc_files_x86.zip)
 * Download for 64-bit boot image: [winpe_vnc_files_x64.zip](https://github.com/sjkingo/winpe_vnc/raw/master/winpe_vnc_files_x64.zip)
 
-Manual steps
-------------
+1. Download the correct zip file for the boot image architecture (above).
+2. Unzip the files to a temporary directory.
+3. Mount the WIM image with `dism`.
+4. Move the `deploy` and `VNC` directories into the image root.
+5. Delete `setup.exe` in the root of the image.
+6. Move the `startnet.cmd` file to `\Windows\System32`, overriding the existing file.
+7. Unmount the image and all finished.
+
+
+Manual steps (to use latest version of TightVNC)
+------------------------------------------------
 
 1. Mount WIM image with dism (if extracted from boot.wim, it will be index:2)
 2. mkdir \deploy
@@ -52,11 +63,7 @@ Manual steps
     ```
 
 12. Commit and unmount the image
-13. Export index:2 from the image (this compresses it again):
-
-    `dism /Export-Image /SourceImageFile:<SRC> /DestinationImageFile:<NEW_FILE> /Compress:max /SourceIndex:2`
-
-14. Upload to WDS and voila
+13. Upload to WDS and voila
 
 
 Some helpful commands
@@ -71,3 +78,7 @@ dism /Get-ImageInfo /ImageFile:<SRC>
 
 Note the image index will always be :2. Don't attempt to mount/edit index:1 as
 it does not contain the setup bootstrapper that is run on PXE boot.
+
+Exporting the image will recompress it slightly and yield a smaller file.
+
+Please note TightVNC is licensed under the GPL.
