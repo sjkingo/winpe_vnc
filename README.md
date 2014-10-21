@@ -4,6 +4,9 @@ winpe_vnc - How to integrate a VNC server into WinPE
 Quick steps
 -----------
 
+* Download for 32-bit boot image: [winpe_vnc_files_x86.zip](https://github.com/sjkingo/winpe_vnc/raw/master/winpe_vnc_files_x86.zip)
+* Download for 64-bit boot image: [winpe_vnc_files_x64.zip](https://github.com/sjkingo/winpe_vnc/raw/master/winpe_vnc_files_x64.zip)
+
 Manual steps
 ------------
 
